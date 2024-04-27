@@ -1,0 +1,13 @@
+{
+  "name": "@queuebase/eslint",
+  "version": "0.0.0",
+  "devDependencies": {
+    "eslint": "^9.1.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^1.13.3",
+    "eslint-plugin-import": "^2.29.1"
+  }
+}

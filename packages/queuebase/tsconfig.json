@@ -1,0 +1,4 @@
+{
+  "extends": "@queuebase/tsconfig/base",
+  "include": ["src/**/*", "*.ts", "test"]
+}
