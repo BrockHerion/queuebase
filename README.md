@@ -7,6 +7,4 @@
 
 # Queuebase
 
----
-
 Background jobs in Next.js made easy.
