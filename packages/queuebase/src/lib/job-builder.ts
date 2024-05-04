@@ -1,12 +1,12 @@
 import {
   AnyParams,
-  HandlerFnArgs,
+  Job,
   JobBuilder,
   JobBuilderDef,
   UnsetMarker,
 } from "./types";
 
-function internalCreateBuilder<THandlerArgs extends HandlerFnArgs<any, any>>(
+function internalCreateBuilder<THandlerArgs>(
   initDef: Partial<JobBuilderDef<any>> = {},
 ): JobBuilder<{
   _input: UnsetMarker;
@@ -21,8 +21,6 @@ function internalCreateBuilder<THandlerArgs extends HandlerFnArgs<any, any>>(
       _output: undefined,
     },
 
-    handler: () => ({}),
-
     // Overload with properties passed in
     ...initDef,
   };
@@ -35,24 +33,22 @@ function internalCreateBuilder<THandlerArgs extends HandlerFnArgs<any, any>>(
       }) as JobBuilder<any>;
     },
     handler: (fn) => {
-      return internalCreateBuilder({
-        ..._def,
+      return {
+        _def,
         handler: fn,
-      }) as JobBuilder<any>;
+      } as Job<any>;
     },
   };
 }
 
-type InOut<THandlerArgs extends HandlerFnArgs<any, any>> = () => JobBuilder<{
+type InOut<THandlerArgs> = () => JobBuilder<{
   _input: UnsetMarker;
   _metadata: UnsetMarker;
   _output: UnsetMarker;
   _handlerArgs: THandlerArgs;
 }>;
 
-export function createBuilder<
-  THandlerArgs extends HandlerFnArgs<any, any>,
->(): InOut<THandlerArgs> {
+export function createBuilder<THandlerArgs>(): InOut<THandlerArgs> {
   return () => {
     return internalCreateBuilder<THandlerArgs>();
   };

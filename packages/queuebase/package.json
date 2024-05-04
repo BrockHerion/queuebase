@@ -28,6 +28,16 @@
 				"default": "./dist/next/index.cjs"
 			}
 		},
+		"./client": {
+			"import": {
+				"types": "./dist/client/index.d.ts",
+				"default": "./dist/client/index.js"
+			},
+			"require": {
+				"types": "./dist/client/index.d.cts",
+				"default": "./dist/client/index.cjs"
+			}
+		},
 		"./lib/types": {
 			"import": {
 				"types": "./dist/lib/types.d.ts",
@@ -53,6 +63,7 @@
 		"typescript": "^5.4.5"
 	},
 	"dependencies": {
+		"std-env": "^3.7.0",
 		"tslog": "^4.9.2"
 	},
 	"peerDependencies": {
@@ -64,32 +75,32 @@
 		}
 	},
 	"eslintConfig": {
-    "root": true,
-    "extends": [
-      "@queuebase/eslint/base"
-    ],
-    "rules": {
-      "no-console": "error",
-      "no-restricted-globals": [
-        "error",
-        {
-          "name": "fetch",
-          "message": "fetch should be passed as parameter to support overriding default behaviors"
-        },
-        {
-          "name": "process",
-          "message": "Use `import { process } from 'std-env` instead"
-        }
-      ],
-      "no-restricted-imports": [
-        "error",
-        {
-          "patterns": [
-            "queuebase",
-            "queuebase/*"
-          ]
-        }
-      ]
-    }
-  }
+		"root": true,
+		"extends": [
+			"@queuebase/eslint/base"
+		],
+		"rules": {
+			"no-console": "error",
+			"no-restricted-globals": [
+				"error",
+				{
+					"name": "fetch",
+					"message": "fetch should be passed as parameter to support overriding default behaviors"
+				},
+				{
+					"name": "process",
+					"message": "Use `import { process } from 'std-env` instead"
+				}
+			],
+			"no-restricted-imports": [
+				"error",
+				{
+					"patterns": [
+						"queuebase",
+						"queuebase/*"
+					]
+				}
+			]
+		}
+	}
 }

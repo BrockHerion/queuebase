@@ -24,24 +24,10 @@ type ResolverOptions<TParams extends AnyParams> = {
   metadata: Simplify<
     TParams["_metadata"] extends UnsetMarker ? undefined : TParams["_metadata"]
   >;
+  input: TParams["_input"];
 };
 
-export type HandlerFnArgs<TRequest, TResponse> = {
-  req: TRequest;
-  res: TResponse;
-};
-
-type HandlerFn<
-  TInput extends Json | UnsetMarker,
-  TOutput extends ValidHandlerObject,
-  TArgs extends HandlerFnArgs<any, any>,
-> = (
-  opts: TArgs & {
-    input: TInput extends UnsetMarker ? undefined : TInput;
-  },
-) => MaybePromise<TOutput>;
-
-type ResolverFn<TOutput extends Json | void, TParams extends AnyParams> = (
+type HandlerFn<TOutput extends Json | void, TParams extends AnyParams> = (
   opts: ResolverOptions<TParams>,
 ) => MaybePromise<TOutput>;
 
@@ -49,7 +35,6 @@ export type AnyParams = {
   _input: any;
   _metadata: any; // imaginary field used to bind metadata return type to a job resolver
   _output: any;
-  _handlerArgs: any;
 };
 
 export interface JobBuilder<TParams extends AnyParams> {
@@ -61,28 +46,24 @@ export interface JobBuilder<TParams extends AnyParams> {
     _input: TParser["_output"];
     _metadata: TParams["_metadata"];
     _output: UnsetMarker;
-    _handlerArgs: TParams["_handlerArgs"];
   }>;
-  handler: <TOutput extends ValidHandlerObject>(
-    fn: TParams["_metadata"] extends UnsetMarker
-      ? HandlerFn<TParams["_input"], TOutput, TParams["_metadata"]>
-      : ErrorMessage<"Handler is already set">,
-  ) => JobBuilder<{
+  handler: <TOutput extends Json | void>(
+    fn: HandlerFn<TOutput, TParams>,
+  ) => Job<{
     _input: TParams["_input"];
-    _metadata: TOutput;
-    _output: UnsetMarker;
-    _handlerArgs: TParams["_handlerArgs"];
+    _metadata: TParams["_metadata"];
+    _output: TOutput;
   }>;
 }
 
 export type JobBuilderDef<TParams extends AnyParams> = {
   inputParser: JsonParser;
-  handler: HandlerFn<TParams["_input"], {} | void, TParams["_handlerArgs"]>;
 };
 
 export interface Job<TParams extends AnyParams> {
   _def: TParams & JobBuilderDef<TParams>;
-  resolver: ResolverFn<TParams["_output"], TParams>;
+  input: TParams["_input"];
+  handler: HandlerFn<TParams["_output"], TParams>;
 }
 
 export type AnyJob = Job<AnyParams>;
@@ -91,3 +72,20 @@ export type JobRouter<TParams extends AnyParams = AnyParams> = Record<
   string,
   Job<TParams>
 >;
+
+export type RouteHandlerOptions<TRouter extends JobRouter> = {
+  router: TRouter;
+};
+
+export type RequestHandlerInput = { req: Request };
+
+export type RequestHandler = (
+  input: RequestHandlerInput,
+) => Promise<RequestInput>;
+
+export type RequestInput = {
+  req: Request;
+  slug: string;
+  job: Job<AnyParams>;
+  secretKey: string;
+};
