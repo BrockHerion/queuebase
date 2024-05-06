@@ -43,4 +43,28 @@ export class AttemptsClient extends BaseClient {
       console.error(error);
     }
   }
+
+  async log(
+    attemptId: string,
+    level: string,
+    message: string,
+    timestamp: Date,
+  ) {
+    try {
+      await fetch(`${this._queuebaseUrl}/attempts/${attemptId}/logs`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this._publicKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+          level,
+          timestamp,
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

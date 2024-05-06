@@ -1,4 +1,5 @@
 import { QueuebaseApiClient } from "../sdk/api";
+import { Logger } from "../sdk/logger";
 import { verifySignature } from "./crypto";
 import {
   JobRouter,
@@ -21,6 +22,10 @@ export async function runRequestHandler(
   await apiClient.attempts.update(rest.attemptId, {
     startTime: new Date(),
   });
+  const logger = new Logger(apiClient, rest.attemptId);
+
+  logger.info("Beginning job execution");
+
   const start = process.hrtime();
 
   let success = false;
@@ -41,12 +46,11 @@ export async function runRequestHandler(
 
     await job.handler({ input: payload });
 
-    success = true;
-  } catch (error) {
-    console.error(error);
+    logger.success("Job executed successfully");
 
-    // Return a failure response
-    await apiClient.attempts.updateStatus(rest.attemptId, "failed");
+    success = true;
+  } catch (error: any) {
+    logger.error(`Job failed: ${error.message}`);
   }
 
   // Calculate the duration and update the attempt
@@ -57,8 +61,13 @@ export async function runRequestHandler(
     duration: Math.round(duration),
   });
 
-  // Return a success response
-  await apiClient.attempts.updateStatus(rest.attemptId, "completed");
+  if (success) {
+    // Return a success response
+    await apiClient.attempts.updateStatus(rest.attemptId, "completed");
+  } else {
+    // Return a failure response
+    await apiClient.attempts.updateStatus(rest.attemptId, "failed");
+  }
 
   return { success };
 }
