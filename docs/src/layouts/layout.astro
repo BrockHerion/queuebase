@@ -1,0 +1,27 @@
+---
+import Header from "../components/header.astro";
+import Sidebar from "../components/sidebar.astro";
+import Wrapper from "../components/wrapper.astro";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="bg-zinc-900 text-white">
+    <Header />
+    <Wrapper>
+      <div class="flex">
+        <Sidebar />
+        <article class="flex-1 p-4">
+          <slot />
+          <!-- your content is injected here -->
+        </article>
+      </div>
+    </Wrapper>
+  </body>
+</html>

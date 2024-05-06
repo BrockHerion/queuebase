@@ -1,0 +1,28 @@
+---
+const activeRoute = Astro.url.pathname;
+---
+
+<aside class="sticky w-64 text-sm tracking-wide">
+  <div class="p-4">
+    <ul class="space-y-2">
+      <li
+        class={`hover:bg-zinc-700 rounded-md flex flex-col ${activeRoute === "/" && "bg-emerald-600 font-medium"}`}
+      >
+        <a href="/" class={`px-2 py-1.5 w-full`}>Introduction </a>
+      </li>
+      <li>
+        <div class="px-2 py-1.5">Getting Started</div>
+        <ul class="mx-2 my-2 px-4 py-1.5 border-l border-zinc-700">
+          <li
+            class={`hover:bg-zinc-700 rounded-md flex flex-col ${activeRoute === "/getting-started/nextjs-appdir" && "bg-emerald-600"}`}
+          >
+            <a
+              href="/getting-started/nextjs-appdir"
+              class={`px-2 py-1.5 w-full`}>Next.js (App Router)</a
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</aside>
