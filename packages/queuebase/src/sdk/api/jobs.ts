@@ -1,16 +1,13 @@
 import { AnyParams } from "queuebase/lib/types";
+import { BaseClient } from "./base-client";
 
-export class QueuebaseApiClient {
-  private readonly _publicKey: string;
-  private readonly _queuebaseUrl: string;
-
+export class JobsClient extends BaseClient {
   constructor(publicKey: string, queuebaseUrl?: string) {
-    this._publicKey = publicKey;
-    this._queuebaseUrl = queuebaseUrl ?? "https://queuebase.com/api/v1";
+    super(publicKey, queuebaseUrl);
   }
 
   // TODO: Return a queued job with status, cancel, and retry methods
-  public async enqueue<TParams extends AnyParams>(
+  async enqueue<TParams extends AnyParams>(
     name: string,
     payload?: TParams["_input"],
   ): Promise<void> {

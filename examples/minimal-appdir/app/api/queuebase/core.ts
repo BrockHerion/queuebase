@@ -17,6 +17,14 @@ export const jobRouter = {
     .handler(({ input }) => {
       console.log(`Hello, ${input.name}!`);
     }),
+  failure: j().handler(() => {
+    const error = true;
+    if (error) {
+      throw new Error("This job always fails");
+    }
+
+    console.log("This job never runs");
+  }),
 } satisfies QueuebaseJobRouter;
 
 export type JobRouter = typeof jobRouter;

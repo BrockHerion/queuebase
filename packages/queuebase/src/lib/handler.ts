@@ -1,3 +1,4 @@
+import { QueuebaseApiClient } from "../sdk/api";
 import { verifySignature } from "./crypto";
 import {
   JobRouter,
@@ -7,37 +8,59 @@ import {
 } from "./types";
 import { parseAndValidateRequest } from "./validate-request";
 
+const apiClient = new QueuebaseApiClient();
+
 export async function runRequestHandler(
   handler: RequestHandler,
   args: RequestHandlerInput,
 ) {
   const { slug, job, req, secretKey } = await handler(args);
+  const { payload, ...rest } = await req.clone().json();
 
-  // Validate the request signature
-  const validationResult = await verifySignature(
-    await req.clone().text(),
-    req.headers.get("X-Queuebase-Signature"),
-    secretKey,
-  );
+  // Update the attempt start time and start the timer
+  await apiClient.attempts.update(rest.attemptId, {
+    startTime: new Date(),
+  });
+  const start = process.hrtime();
 
-  if (!validationResult) {
-    console.error("Invalid signature");
-    return { success: false };
-  }
-
-  // Try and run the job
+  let success = false;
   try {
-    console.debug(`Running job: ${slug}`);
+    // Validate the request signature
+    const validationResult = await verifySignature(
+      await req.clone().text(),
+      req.headers.get("X-Queuebase-Signature"),
+      secretKey,
+    );
 
-    const { payload, ...rest } = await req.json();
+    if (!validationResult) {
+      console.error("Invalid signature");
+      throw new Error("Invalid signature");
+    }
 
-    await job.handler({ input: payload, metadata: rest });
+    // Try and run the job
+
+    await job.handler({ input: payload });
+
+    success = true;
   } catch (error) {
     console.error(error);
-    return { success: false };
+
+    // Return a failure response
+    await apiClient.attempts.updateStatus(rest.attemptId, "failed");
   }
 
-  return { success: true };
+  // Calculate the duration and update the attempt
+  const end = process.hrtime(start);
+  const duration = end[0] * 1000 + end[1] / 1000000;
+  await apiClient.attempts.update(rest.attemptId, {
+    endTime: new Date(),
+    duration: Math.round(duration),
+  });
+
+  // Return a success response
+  await apiClient.attempts.updateStatus(rest.attemptId, "completed");
+
+  return { success };
 }
 
 export const buildRequestHandler =

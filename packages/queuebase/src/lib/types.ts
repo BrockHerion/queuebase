@@ -11,19 +11,20 @@ export type ErrorMessage<TError extends string> = TError;
 
 export type Simplify<TType> = { [TKey in keyof TType]: TType[TKey] } & {};
 
+export type JobData = {
+  jobId: string;
+  runId: string;
+  envId: string;
+  attemptId: string;
+  name: string;
+};
+
 const unsetMarker = "unsetMarker" as "unsetMarker" & {
   __brand: "unsetMarker";
 };
 export type UnsetMarker = typeof unsetMarker;
 
-export type ValidHandlerObject = {
-  [key: string]: unknown;
-} | void;
-
 type ResolverOptions<TParams extends AnyParams> = {
-  metadata: Simplify<
-    TParams["_metadata"] extends UnsetMarker ? undefined : TParams["_metadata"]
-  >;
   input: TParams["_input"];
 };
 
@@ -33,7 +34,6 @@ type HandlerFn<TOutput extends Json | void, TParams extends AnyParams> = (
 
 export type AnyParams = {
   _input: any;
-  _metadata: any; // imaginary field used to bind metadata return type to a job resolver
   _output: any;
 };
 
@@ -44,14 +44,12 @@ export interface JobBuilder<TParams extends AnyParams> {
       : ErrorMessage<"Input is already in use">,
   ) => JobBuilder<{
     _input: TParser["_output"];
-    _metadata: TParams["_metadata"];
     _output: UnsetMarker;
   }>;
   handler: <TOutput extends Json | void>(
     fn: HandlerFn<TOutput, TParams>,
   ) => Job<{
     _input: TParams["_input"];
-    _metadata: TParams["_metadata"];
     _output: TOutput;
   }>;
 }
