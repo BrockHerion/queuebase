@@ -52,8 +52,12 @@
 	"files": [
 		"dist/lib",
 		"dist/next",
-		"dist/server"
+		"dist/server",
+		"dist/client"
 	],
+	"publishConfig": {
+    "access": "public"
+  },
 	"devDependencies": {
 		"@queuebase/eslint": "workspace:*",
 		"@queuebase/tsconfig": "workspace:*",
