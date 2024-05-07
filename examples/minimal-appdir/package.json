@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "next": "14.2.3",
-    "queuebase": "workspace:*",
+    "queuebase": "workspace:^",
     "react": "^18",
     "react-dom": "^18",
     "zod": "^3.23.6"

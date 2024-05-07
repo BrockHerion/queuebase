@@ -60,7 +60,7 @@ importers:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.0.0)(react@18.0.0)
       queuebase:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/queuebase
       react:
         specifier: ^18
