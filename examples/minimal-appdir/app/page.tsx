@@ -1,6 +1,7 @@
 import ExecuteFailure from "./execute-failure";
 import ExecuteJob from "./execute-job";
 import ExecuteJobNoParams from "./execute-no-params";
+import ExecuteJobServer from "./execute-server-action";
 
 export const metadata = {
   title: "Queuebase Next.js Minimal Example",
@@ -13,6 +14,7 @@ export default function Home() {
       <ExecuteJobNoParams />
       <ExecuteJob />
       <ExecuteFailure />
+      <ExecuteJobServer />
     </main>
   );
 }
