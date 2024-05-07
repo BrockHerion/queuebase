@@ -95,7 +95,7 @@ export default function ExecuteJob() {
 }
 ```
 
-In a server component: 
+In a server action:
 
 ```ts
 "use server";
