@@ -7,6 +7,10 @@ export function INTERNAL_DO_NOT_USE_createRouteHandler<
 >(opts: RouteHandlerOptions<TRouter>) {
   const requestHandler = buildRequestHandler<TRouter>(opts);
 
+  const GET = async (request: Request | { request: Request }) => {
+    return new Response(null, { status: 405 });
+  };
+
   const POST = async (request: Request | { request: Request }) => {
     const req = request instanceof Request ? request : request.request;
 
@@ -22,6 +26,7 @@ export function INTERNAL_DO_NOT_USE_createRouteHandler<
   };
 
   return {
+    GET,
     POST,
   };
 }

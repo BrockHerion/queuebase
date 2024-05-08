@@ -11,7 +11,7 @@ export class QueuebaseApiClient {
 
     const queuebaseUrl =
       process.env.NEXT_PUBLIC_QUEUEBASE_APP_URL ||
-      "https://queuebase.com/api/v1";
+      "https://www.queuebase.com/api/v1";
 
     this.attempts = new AttemptsClient(apiKey, queuebaseUrl);
     this.jobs = new JobsClient(apiKey, queuebaseUrl);
