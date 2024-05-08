@@ -23,6 +23,18 @@ const activeRoute = Astro.url.pathname;
           </li>
         </ul>
       </li>
+      <li>
+        <div class="px-2 py-1.5">Guides</div>
+        <ul class="mx-2 my-2 px-4 py-1.5 border-l border-zinc-700">
+          <li
+            class={`hover:bg-zinc-700 rounded-md flex flex-col ${activeRoute === "/guides/cron" && "bg-emerald-600"}`}
+          >
+            <a href="/guides/cron" class={`px-2 py-1.5 w-full`}
+              >Scheduling CRON jobs</a
+            >
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </aside>
