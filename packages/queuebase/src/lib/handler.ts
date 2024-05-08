@@ -24,7 +24,7 @@ export async function runRequestHandler(
   });
   const logger = new Logger(apiClient, rest.attemptId);
 
-  logger.info("Beginning job execution");
+  logger.info(`Beginning for job: ${slug}`);
 
   const start = process.hrtime();
 
@@ -43,7 +43,6 @@ export async function runRequestHandler(
     }
 
     // Try and run the job
-
     await job.handler({ input: payload });
 
     logger.success("Job executed successfully");

@@ -12,6 +12,7 @@ export const createRouteHandler = <TRouter extends JobRouter>(
   const handlers = INTERNAL_DO_NOT_USE_createRouteHandler(opts);
 
   return {
+    GET: (req: NextRequest) => handlers.GET(req),
     POST: (req: NextRequest) => handlers.POST(req),
   };
 };

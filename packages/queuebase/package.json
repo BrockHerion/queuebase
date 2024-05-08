@@ -1,11 +1,12 @@
 {
 	"name": "queuebase",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"license": "MIT",
 	"type": "module",
 	"description": "Background job processing for Next.js",
 	"author": "Brock Herion",
 	"scripts": {
+		"dev": "bunchee -w --tsconfig tsconfig.build.json",
 		"build": "bunchee --tsconfig tsconfig.build.json"
 	},
 	"exports": {
