@@ -31,6 +31,9 @@ export const jobRouter = {
   archive: j().handler(() => {
     console.log("This job should be archived");
   }),
+  cronJob: j().handler(() => {
+    console.log("This job should run every minute");
+  }),
 } satisfies QueuebaseJobRouter;
 
 export type JobRouter = typeof jobRouter;

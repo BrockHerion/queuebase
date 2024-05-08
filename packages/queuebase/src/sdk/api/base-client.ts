@@ -4,6 +4,6 @@ export abstract class BaseClient {
 
   constructor(publicKey: string, queuebaseUrl?: string) {
     this._publicKey = publicKey;
-    this._queuebaseUrl = queuebaseUrl ?? "https://queuebase.com/api/v1";
+    this._queuebaseUrl = queuebaseUrl ?? "https://www.queuebase.com/api/v1";
   }
 }
