@@ -1,6 +1,6 @@
 import { createRouteHandler } from "queuebase/next";
 import { jobRouter } from "./core";
 
-export const { POST } = createRouteHandler({
+export const { GET, POST } = createRouteHandler({
   router: jobRouter,
 });

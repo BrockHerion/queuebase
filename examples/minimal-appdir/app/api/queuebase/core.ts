@@ -25,6 +25,12 @@ export const jobRouter = {
 
     console.log("This job never runs");
   }),
+  doesNotExist: j().handler(() => {
+    console.log("This job doesn't exist yet");
+  }),
+  archive: j().handler(() => {
+    console.log("This job should be archived");
+  }),
 } satisfies QueuebaseJobRouter;
 
 export type JobRouter = typeof jobRouter;
