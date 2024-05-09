@@ -1,0 +1,29 @@
+# Compare
+
+In this section, we'll look a couple of alternatives and how they compare to Queuebase.
+
+## QStash
+
+Fun fact: Queuebase is actually built on top of QStash!
+
+QStash is a serverless messaging platform offered by Upstash. It provides a robust set of tools for creating and managing jobs. Queuebase builds on top of it to take the complexity out of managing jobs while providing additional features, such as detailed analytics, performance metrics, and more.
+
+## Inngest
+
+Inngest is is a service that lets you create queues, workers, and workflows without having to manage complicated infrastructure. It works similarly to Queuebase in that job runs are triggered by HTTP requests.
+
+For local development however, you have to setup a local instance of Inngest in your machine. Queuebase provides a more seamless experience by giving you an API key and letting you manage your own environments in the dashboard.
+
+## BullMQ
+
+BullMQ is a Redis-based queueing system for Node.js. It's a great choice if you're using a dedicated Node server. It lacks in it's severless capabilites however, and doesn't provide the same level of analytics and monitoring as Queuebase.
+
+With BullMQ, you're responsible for managing your own infrastructure, which can be a hassle. Queuebase takes care of all that for you, so you can focus on building your app.
+
+## Quirrel
+
+Quirrel is a service that's very similar to Queuebase that was aquired Netlify. It provides you with the ability to create and manage jobs, and it's also serverless.
+
+## Slater
+
+Slater is a CRON job management system for serverless. It provides a simple way of managing tasks that run on a schedule. As of now, it only supports CRON jobs, while Queuebase supports both CRON jobs and jobs triggered from events.
