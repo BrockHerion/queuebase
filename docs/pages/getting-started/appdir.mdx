@@ -1,9 +1,8 @@
 ---
-layout: "../../layouts/layout.astro"
-title: "Next.js App Router Setup"
+title: "Next.js (/app)"
 ---
 
-# Next.js App Router Setup
+# Next.js App Router
 
 ## Prequistisites
 
@@ -62,7 +61,7 @@ When a job is triggered, Queuebase will send a POST request to this endpoint wit
 import { createRouteHandler } from "queuebase/next";
 import { jobRouter } from "./core";
 
-export const { POST } = createRouteHandler({
+export const { GET, POST } = createRouteHandler({
   router: jobRouter,
 });
 ```

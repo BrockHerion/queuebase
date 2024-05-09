@@ -1,0 +1,23 @@
+{
+	"index": {
+		"title": "Welcome to Queuebase",
+		"theme": {
+			"typesetting": "article",
+      "breadcrumb": false,
+      "toc": false
+		}
+	},
+	"getting-started": "Getting Started",
+	"guides": "How To",
+	"roadmap": {
+    "title": "Roadmap",
+    "href": "https://brockherion.notion.site/Queuebase-Roadmap-de4d7988912a448a8f7a05a654b5350f",
+    "newWindow": true
+  },
+	"project-link": {
+    "title": "Dashboard ↗",
+    "type": "page",
+    "href": "https://queuebase.com/dashboard/apps",
+    "newWindow": true
+  }
+}
