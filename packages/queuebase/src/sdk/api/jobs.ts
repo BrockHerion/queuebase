@@ -1,4 +1,4 @@
-import { AnyParams } from "queuebase/lib/types";
+import { AnyParams } from "../../lib/types";
 import { BaseClient } from "./base-client";
 
 export class JobsClient extends BaseClient {

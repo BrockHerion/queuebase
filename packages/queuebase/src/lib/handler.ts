@@ -1,6 +1,6 @@
 import { QueuebaseApiClient } from "../sdk/api";
-import { Logger } from "../sdk/logger";
 import { verifySignature } from "./crypto";
+import { Logger } from "./logger";
 import {
   JobRouter,
   RequestHandler,
@@ -24,7 +24,7 @@ export async function runRequestHandler(
   });
   const logger = new Logger(apiClient, rest.attemptId);
 
-  logger.info(`Beginning for job: ${slug}`);
+  logger.info(`Beginning execution for job: ${slug}`);
 
   const start = process.hrtime();
 
@@ -43,7 +43,7 @@ export async function runRequestHandler(
     }
 
     // Try and run the job
-    await job.handler({ input: payload });
+    await job.handler({ input: payload, logger });
 
     logger.success("Job executed successfully");
 

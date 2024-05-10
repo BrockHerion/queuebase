@@ -1,0 +1,80 @@
+# Logging
+
+Logging is a critical part of any application. It helps you understand what's happening in your application, diagnose problems, and monitor performance. Queuebase provides a simple logging system that you can use to log messages from your jobs.
+
+## Adding Logging
+
+To log messages from your jobs, Queuebase exposes a `logger` object that you can use in your job handlers. The logger will log to your console and to the Queuebase dashboard, allowing you to view your run logs there.
+
+The logger is exposed as a parameter in your job handler function. Here's an example of how you can use it:
+
+```ts
+export const jobRouter = {
+  sayHello: j().handler(({ logger }) => {
+    logger.info("Hello there!");
+  }),
+} satisfies QueuebaseJobRouter;
+```
+
+## Methods
+
+The logger object exposes the following methods:
+
+### trace
+
+Logs a trace message.
+
+```ts
+logger.trace("This is a trace message!");
+```
+
+### debug
+
+Logs a debug message.
+
+```ts
+logger.debug("This is a debug message!");
+```
+
+
+
+
+### info
+
+Logs an informational message.
+
+```ts
+logger.info("Hello there!");
+```
+
+### success
+
+Logs a success message.
+
+```ts
+logger.success("Job completed successfully!");
+```
+
+### warn
+
+Logs a warning message.
+
+```ts
+logger.warn("This is a warning!");
+```
+
+### error
+
+Logs an error message.
+
+```ts
+logger.error("Something went wrong!");
+```
+
+### fatal
+
+Logs a fatal message.
+
+```ts
+logger.fatal("This is a fatal error!");
+```

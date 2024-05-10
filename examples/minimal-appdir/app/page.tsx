@@ -1,5 +1,6 @@
 import ExecuteFailure from "./execute-failure";
 import ExecuteJob from "./execute-job";
+import ExecuteLogging from "./execute-logging";
 import ExecuteJobNoParams from "./execute-no-params";
 import ExecuteJobServer from "./execute-server-action";
 
@@ -15,6 +16,7 @@ export default function Home() {
       <ExecuteJob />
       <ExecuteFailure />
       <ExecuteJobServer />
+      <ExecuteLogging />
     </main>
   );
 }

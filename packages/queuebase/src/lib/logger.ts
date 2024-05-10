@@ -1,4 +1,4 @@
-import { QueuebaseApiClient } from "./api";
+import { QueuebaseApiClient } from "../sdk/api";
 
 export abstract class QueuebaseLogger {
   abstract info(message: string): void;
@@ -95,16 +95,64 @@ export class Logger extends QueuebaseLogger {
       });
   }
   warn(message: string): void {
-    throw new Error("Method not implemented.");
+    const formattedMessage = `${colorize(`${icons.trace} [WARN]`, "warn")} ${message}`;
+    console.log(formattedMessage);
+
+    const timestamp = new Date();
+
+    this._apiClient.attempts
+      .log(this._attemptId, "warn", message, timestamp)
+      .then(() => {
+        console.debug("Logged warn message");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   debug(message: string): void {
-    throw new Error("Method not implemented.");
+    const formattedMessage = `${colorize(`${icons.trace} [DEBUG]`, "debug")} ${message}`;
+    console.log(formattedMessage);
+
+    const timestamp = new Date();
+
+    this._apiClient.attempts
+      .log(this._attemptId, "debug", message, timestamp)
+      .then(() => {
+        console.debug("Logged debug message");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   fatal(message: string): void {
-    throw new Error("Method not implemented.");
+    const formattedMessage = `${colorize(`${icons.trace} [FATAL]`, "fatal")} ${message}`;
+    console.log(formattedMessage);
+
+    const timestamp = new Date();
+
+    this._apiClient.attempts
+      .log(this._attemptId, "fatal", message, timestamp)
+      .then(() => {
+        console.debug("Logged fatal message");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   trace(message: string): void {
-    throw new Error("Method not implemented.");
+    const formattedMessage = `${colorize(`${icons.trace} [TRACE]`, "trace")} ${message}`;
+    console.log(formattedMessage);
+
+    const timestamp = new Date();
+
+    this._apiClient.attempts
+      .log(this._attemptId, "trace", message, timestamp)
+      .then(() => {
+        console.debug("Logged trace message");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   success(message: string): void {
     const formattedMessage = `${colorize(`${icons.success} [SUCCESS]`, "success")} ${message}`;

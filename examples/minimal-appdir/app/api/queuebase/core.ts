@@ -34,6 +34,12 @@ export const jobRouter = {
   cronJob: j().handler(() => {
     console.log("This job should run every minute");
   }),
+  moreLoggingExample: j().handler(({ logger }) => {
+    logger.info("This is an info message");
+    logger.warn("This is a warning message");
+    logger.error("This is an error message");
+    logger.success("This is a success message");
+  }),
 } satisfies QueuebaseJobRouter;
 
 export type JobRouter = typeof jobRouter;
