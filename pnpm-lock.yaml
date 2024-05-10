@@ -35,6 +35,9 @@ importers:
       next:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.0.0)(react@18.0.0)
+      next-plausible:
+        specifier: ^3.12.0
+        version: 3.12.0(next@14.2.3)(react-dom@18.0.0)(react@18.0.0)
       nextra:
         specifier: ^2.13.4
         version: 2.13.4(next@14.2.3)(react-dom@18.0.0)(react@18.0.0)
@@ -4454,6 +4457,18 @@ packages:
       vfile-matter: 3.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /next-plausible@3.12.0(next@14.2.3)(react-dom@18.0.0)(react@18.0.0):
+    resolution: {integrity: sha512-SSkEqKQ6PgR8fx3sYfIAT69k2xuCUXO5ngkSS19CjxY97lAoZxsfZpYednxB4zo0mHYv87JzhPynrdBPlCBVHg==}
+    peerDependencies:
+      next: ^11.1.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      next: 14.2.3(react-dom@18.0.0)(react@18.0.0)
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
     dev: false
 
   /next-seo@6.5.0(next@14.2.3)(react-dom@18.0.0)(react@18.0.0):
