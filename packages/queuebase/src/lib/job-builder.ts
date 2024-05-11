@@ -10,15 +10,19 @@ function internalCreateBuilder<THandlerArgs>(
   initDef: Partial<JobBuilderDef<any>> = {},
 ): JobBuilder<{
   _input: UnsetMarker;
-  _metadata: UnsetMarker;
   _output: UnsetMarker;
   _handlerArgs: THandlerArgs;
+  _config: UnsetMarker;
 }> {
   const _def: JobBuilderDef<AnyParams> = {
     inputParser: {
       parse: () => undefined,
       _input: undefined,
       _output: undefined,
+    },
+
+    config: {
+      retries: 0,
     },
 
     // Overload with properties passed in
@@ -32,6 +36,12 @@ function internalCreateBuilder<THandlerArgs>(
         inputParser: parser,
       }) as JobBuilder<any>;
     },
+    config: (config) => {
+      return internalCreateBuilder({
+        ..._def,
+        config,
+      }) as JobBuilder<any>;
+    },
     handler: (fn) => {
       return {
         _def,
@@ -43,9 +53,9 @@ function internalCreateBuilder<THandlerArgs>(
 
 type InOut<THandlerArgs> = () => JobBuilder<{
   _input: UnsetMarker;
-  _metadata: UnsetMarker;
   _output: UnsetMarker;
   _handlerArgs: THandlerArgs;
+  _config: UnsetMarker;
 }>;
 
 export function createBuilder<THandlerArgs>(): InOut<THandlerArgs> {

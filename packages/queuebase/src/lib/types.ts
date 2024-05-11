@@ -37,6 +37,13 @@ type HandlerFn<TOutput extends Json | void, TParams extends AnyParams> = (
 export type AnyParams = {
   _input: any;
   _output: any;
+  _config: any;
+};
+
+export type JobConfig = {
+  retries?: number;
+  friendlyName?: string;
+  description?: string;
 };
 
 export interface JobBuilder<TParams extends AnyParams> {
@@ -47,17 +54,29 @@ export interface JobBuilder<TParams extends AnyParams> {
   ) => JobBuilder<{
     _input: TParser["_output"];
     _output: UnsetMarker;
+    _config: TParams["_config"];
+  }>;
+  config: <TConfig extends JobConfig>(
+    config: TParams["_config"] extends UnsetMarker
+      ? TConfig
+      : ErrorMessage<"Config is already in use">,
+  ) => JobBuilder<{
+    _input: TParams["_input"];
+    _output: TParams["_output"];
+    _config: TConfig;
   }>;
   handler: <TOutput extends Json | void>(
     fn: HandlerFn<TOutput, TParams>,
   ) => Job<{
     _input: TParams["_input"];
     _output: TOutput;
+    _config: TParams["_config"];
   }>;
 }
 
 export type JobBuilderDef<TParams extends AnyParams> = {
   inputParser: JsonParser;
+  config: JobConfig;
 };
 
 export interface Job<TParams extends AnyParams> {

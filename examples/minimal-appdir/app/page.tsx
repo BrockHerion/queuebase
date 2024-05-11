@@ -1,3 +1,4 @@
+import ExecuteFailureWithRetry from "./execute-fail-with-retry";
 import ExecuteFailure from "./execute-failure";
 import ExecuteJob from "./execute-job";
 import ExecuteLogging from "./execute-logging";
@@ -17,6 +18,7 @@ export default function Home() {
       <ExecuteFailure />
       <ExecuteJobServer />
       <ExecuteLogging />
+      <ExecuteFailureWithRetry />
     </main>
   );
 }

@@ -3,7 +3,8 @@
 	"type": "module",
 	"scripts": {
 		"build:all": "turbo run build",
-		"build": "turbo run build --filter \"./packages/*\""
+		"build": "turbo run build --filter \"./packages/*\"",
+		"dev": "turbo run dev --filter \"./packages/*\""
 	},
 	"workspaces": [
 		"examples/*",

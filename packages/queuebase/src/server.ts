@@ -25,8 +25,14 @@ export function INTERNAL_DO_NOT_USE_createRouteHandler<
     }
 
     const jobs = Object.keys(opts.router);
+    const res = [];
 
-    return new Response(JSON.stringify(jobs), { status: 200 });
+    for (const job of jobs) {
+      const config = opts.router[job]._def.config;
+      res.push({ name: job, ...config });
+    }
+
+    return new Response(JSON.stringify(res), { status: 200 });
   };
 
   const POST = async (request: Request | { request: Request }) => {

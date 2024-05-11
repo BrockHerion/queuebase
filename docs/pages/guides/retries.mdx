@@ -1,0 +1,39 @@
+# Retries
+
+Jobs can fail for any number of reasons. In these cases, you may want to retry the job to see if it succeeds the next time. You can configure the number of retries in the job configuration, and Queuebase will take care of the rest.
+
+## How it works
+
+When a job fails, Queuebase will automatically retry the job according to the number of retries you've configured. If the job fails after all retries have been exhausted, the job will be marked as failed.
+
+Each retry is created as a new attempt, and you can see the status of each attempt in the run details page. An attempt is created with the following properties:
+
+- `attempt`: The number of the attempt. Increments by 1 for each retry.
+- `status`: The status of the attempt. Defaults to `scheduled`.
+- `payload`: The payload of the attempt. By default, it's the same as the payload of the previous attempt.
+- `jobRunId`: The ID of the job run.
+
+
+
+## Configuration
+
+On your job configuration, you can set the `retries` property to the number of times you want to retry the job. The default value is `0`.
+
+```javascript
+jobWithRetries: j()
+.input(
+	z.object({
+	name: z.string(),
+	}),
+)
+.config({ retries: 1 })
+.handler(({ input }) => {
+	console.log(`Hello, ${input.name}!`);
+})
+```
+
+## Viewing retries
+
+Retries can be viewed as attempts in the Queuebase dashboard.
+
+![Job attempts](/failure-retry.png)
