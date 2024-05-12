@@ -1,15 +1,15 @@
 ---
-title: "Next.js (/app)"
+title: "Next.js (/pages)"
 ---
 
-# Next.js App Router
+# Next.js Pages Router
 
 ## Prequistisites
 
 Before getting started with Queuebase, make sure you have the following setup.
 
 - A Queuebase account (sign up [here](https://queuebase.com/auth/login)) with an app
-- A Next.js application
+- A Next.js (using the /pages directory) application
 - [Ngrok](https://ngrok.com/) or [Localtunnel](https://theboroer.github.io/localtunnel-www/) (to expose your local environment to the internet)
 
 ## Setting up your environment
@@ -29,20 +29,21 @@ You can get these from the Queuebase dashboard.
 
 NEXT_PUBLIC_QUEUEBASE_API_KEY=... # Your Queuebase API key
 QUEUEBASE_SECRET_KEY=... # Your Queuebase secret key
+QUEUEBASE_URL=... # Your Queuebase URL
 ```
 
 ## Creating the job router
 
 ### 1. Create the job router
 
-All jobs in Queuebase are associated with a route. The example below is a very simple of example of creating a job router.
+
+Jobs in Queuebase are associated with a route. Below is a simple example of creating a job router.
 
 ```ts
-// api/queuebase/core.ts
+// api/queuebase.ts
 
 import { type JobRouter as QueuebaseJobRouter } from "queuebase/lib/types";
 import { createQueuebase } from "queuebase/next";
-import { z } from "zod";
 
 export const jobRouter = {
   sayHello: j().handler(() => {
@@ -53,29 +54,29 @@ export const jobRouter = {
 export type JobRouter = typeof jobRouter;
 ```
 
-### 2. Create the route handler
+### 2. Create the API route
 
 When a job is triggered, Queuebase will send a POST request to this endpoint with the job name and any job parameters needed. This route MUST match the route you defined in the dashboard.
 
 ```ts
-// api/queuebase/route.ts
+// api/queuebase.ts
+import { createPagesApiHandler } from "queuebase/next";
 
-import { createAppRouteHandler } from "queuebase/next";
-import { jobRouter } from "./core";
-
-export const { GET, POST } = createAppRouteHandler({
+const handler = createPagesApiHandler({
   router: jobRouter,
 });
+
+export default handler;
 ```
 
 ### 3. Setup the job client
 
-Here's where the magic happens. The `jobs` object contains all your jobs defined in your router and allows you trigger them. Oh, and did we mention it's completely type-safe?
+The `createQueuebaseClient` helper method takes your router and creates a `jobs` object. This object contains all your jobs defined in your router and allows you to trigger them. Oh, and did we mention it's completely type-safe?
 
 ```ts
 // utils/queuebase.ts
 
-import type { JobRouter } from "@/app/api/queuebase/core";
+import type { JobRouter } from "@/pages/api/queuebase";
 import { createQueuebaseClient } from "queuebase/client";
 
 export const { jobs } = createQueuebaseClient<JobRouter>({
@@ -83,16 +84,12 @@ export const { jobs } = createQueuebaseClient<JobRouter>({
 });
 ```
 
-## Run your jobs
+## Running jobs
 
 To run a job, you can use the `enqueue` method on the job object.
 
-### Client Component
-
 ```jsx
-// app/execute-job.tsx
-
-"use client";
+// components/execute-job.tsx
 
 import { jobs } from "@/utils/queuebase";
 
@@ -103,21 +100,8 @@ export default function ExecuteJob() {
       onClick={async () => { 
 		await jobs("sayHello").enqueue(); 
 	  }}>
-      Execute job without input
+      Execute job
     </button>
   );
 }
 ```
-
-### Server Action
-
-```ts
-"use server";
-
-import { jobs } from "@/utils/queuebase";
-
-export default async function executeServer() {
-  await jobs("sayHello").enqueue();
-}
-```
-
