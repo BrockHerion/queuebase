@@ -1,4 +1,4 @@
-import { AnyParams } from "../../lib/types";
+import { AnyParams, EnqueueConfig } from "../../lib/types";
 import { BaseClient } from "./base-client";
 
 export class JobsClient extends BaseClient {
@@ -10,6 +10,7 @@ export class JobsClient extends BaseClient {
   async enqueue<TParams extends AnyParams>(
     name: string,
     payload?: TParams["_input"],
+    config?: EnqueueConfig,
   ): Promise<void> {
     const options: Record<string, string> = {
       method: "POST",
@@ -18,6 +19,7 @@ export class JobsClient extends BaseClient {
     options.body = JSON.stringify({
       name,
       payload,
+      config,
     });
 
     try {

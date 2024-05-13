@@ -1,0 +1,59 @@
+# Delay
+
+Sometimes you want a job to run at some point in the future. For example, you might want to send a reminder email to a user 24 hours after they sign up. You can do this by enqueueing a job with a delay.
+
+## Enqueueing a job with a delay
+
+When you enqueue a job, you can specify a delay in seconds. The job will be run after the specified delay has passed.
+
+```jsx
+"use client";
+
+import { jobs } from "@/utils/queuebase";
+
+export default function ExecuteWithDelay() {
+  return (
+    <button
+      onClick={() => {
+        jobs("delayExample").enqueue(undefined, { delay: 30 });
+      }}
+    >
+      Execute job with delay
+    </button>
+  );
+}
+```
+
+> In the example above, there is no job payload. In this case, `undefined` is passed as the first argument to the `enqueue` method.
+
+## Delay Constants
+
+The Queuebase SDK provides a few constants to help you specify delays in a more readable way. These constants are in seconds. Here are some examples:
+
+- `ONE_MINUTE` = 60 seconds.
+- `ONE_HOUR` = 3600 seconds.
+- `ONE_DAY` = 86400 seconds.
+- `ONE_WEEK` = 604800 seconds.
+
+These contants can be combined to customize your delay.
+
+### Usage
+
+```jsx
+"use client";
+
+import { jobs } from "@/utils/queuebase";
+import { DELAY_TIMES } from "@queuebase/constants";
+
+export default function ExecuteWithDelay() {
+  return (
+    <button
+      onClick={() => {
+        jobs("delayExample").enqueue(undefined, { delay: DELAY_TIMES.ONE_DAY });
+      }}
+    >
+      Execute job with delay
+    </button>
+  );
+}
+```

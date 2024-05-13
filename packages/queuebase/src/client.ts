@@ -1,15 +1,20 @@
-import { AnyParams, JobRouter } from "./lib/types";
+import { EnqueueConfig, JobRouter, UnsetMarker } from "./lib/types";
 import { QueuebaseApiClient } from "./sdk/api";
 
 function genJobs<TRouter extends JobRouter>(apiKey?: string) {
   return <TEndpoint extends keyof TRouter>(endpoint: TEndpoint) => {
     const client = new QueuebaseApiClient(apiKey);
 
+    type Payload = TRouter[TEndpoint]["input"] extends UnsetMarker
+      ? undefined
+      : TRouter[TEndpoint]["input"];
+
     return {
-      enqueue: async <TParams extends AnyParams>(
-        payload?: TParams["_input"],
+      enqueue: async (
+        payload?: Exclude<Payload, undefined>,
+        config?: EnqueueConfig,
       ) => {
-        await client.jobs.enqueue(endpoint.toString(), payload);
+        await client.jobs.enqueue(endpoint.toString(), payload, config);
       },
     };
   };

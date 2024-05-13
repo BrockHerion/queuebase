@@ -1,6 +1,6 @@
 {
 	"name": "queuebase",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"license": "MIT",
 	"type": "module",
 	"description": "Background job processing for Next.js",
@@ -35,6 +35,16 @@
 			"import": {
 				"types": "./dist/client/index.d.ts",
 				"default": "./dist/client/index.js"
+			},
+			"require": {
+				"types": "./dist/client/index.d.cts",
+				"default": "./dist/client/index.cjs"
+			}
+		},
+		"./constants": {
+			"import": {
+				"types": "./dist/constants/index.d.ts",
+				"default": "./dist/constants/index.js"
 			},
 			"require": {
 				"types": "./dist/client/index.d.cts",

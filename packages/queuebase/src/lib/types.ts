@@ -108,3 +108,7 @@ export type RequestInput = {
   job: Job<AnyParams>;
   secretKey: string;
 };
+
+export type EnqueueConfig = {
+  delay?: number;
+};

@@ -61,6 +61,9 @@ export const jobRouter = {
     logger.error("This is an error message");
     logger.success("This is a success message");
   }),
+  delayExample: j().handler(async () => {
+    console.log("This job will run after 30 seconds");
+  }),
 } satisfies QueuebaseJobRouter;
 
 export type JobRouter = typeof jobRouter;

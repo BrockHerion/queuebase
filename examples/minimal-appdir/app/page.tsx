@@ -4,6 +4,7 @@ import ExecuteJob from "./execute-job";
 import ExecuteLogging from "./execute-logging";
 import ExecuteJobNoParams from "./execute-no-params";
 import ExecuteJobServer from "./execute-server-action";
+import ExecuteWithDelay from "./execute-with-delay";
 
 export const metadata = {
   title: "Queuebase Next.js Minimal Example",
@@ -19,6 +20,7 @@ export default function Home() {
       <ExecuteJobServer />
       <ExecuteLogging />
       <ExecuteFailureWithRetry />
+      <ExecuteWithDelay />
     </main>
   );
 }
