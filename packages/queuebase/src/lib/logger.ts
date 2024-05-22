@@ -65,106 +65,85 @@ export class Logger extends QueuebaseLogger {
   }
 
   info(message: string): void {
-    const formattedMessage = `${colorize(`${icons.info} [INFO]`, "info")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.info}`, "info")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "info", message, timestamp)
-      .then(() => {
-        console.debug("Logged info message");
-      })
       .catch((error) => {
         console.error(error);
       });
   }
   error(message: string): void {
-    const formattedMessage = `${colorize(`${icons.error} [ERROR]`, "error")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.error}`, "error")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "error", message, timestamp)
-      .then(() => {
-        console.debug("Logged error message");
-      })
       .catch((error) => {
         console.error(error);
       });
   }
   warn(message: string): void {
-    const formattedMessage = `${colorize(`${icons.trace} [WARN]`, "warn")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.trace}`, "warn")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "warn", message, timestamp)
-      .then(() => {
-        console.debug("Logged warn message");
-      })
       .catch((error) => {
         console.error(error);
       });
   }
   debug(message: string): void {
-    const formattedMessage = `${colorize(`${icons.trace} [DEBUG]`, "debug")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.trace}`, "debug")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "debug", message, timestamp)
-      .then(() => {
-        console.debug("Logged debug message");
-      })
       .catch((error) => {
         console.error(error);
       });
   }
   fatal(message: string): void {
-    const formattedMessage = `${colorize(`${icons.trace} [FATAL]`, "fatal")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.trace}`, "fatal")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "fatal", message, timestamp)
-      .then(() => {
-        console.debug("Logged fatal message");
-      })
       .catch((error) => {
         console.error(error);
       });
   }
   trace(message: string): void {
-    const formattedMessage = `${colorize(`${icons.trace} [TRACE]`, "trace")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.trace}`, "trace")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "trace", message, timestamp)
-      .then(() => {
-        console.debug("Logged trace message");
-      })
       .catch((error) => {
         console.error(error);
       });
   }
   success(message: string): void {
-    const formattedMessage = `${colorize(`${icons.success} [SUCCESS]`, "success")} ${message}`;
+    const formattedMessage = `${colorize(`${icons.success}`, "success")} ${message}`;
     console.log(formattedMessage);
 
     const timestamp = new Date();
 
     this._apiClient.attempts
       .log(this._attemptId, "success", message, timestamp)
-      .then(() => {
-        console.debug("Logged success message");
-      })
       .catch((error) => {
         console.error(error);
       });
