@@ -1,6 +1,6 @@
 {
 	"name": "queuebase",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"license": "MIT",
 	"type": "module",
 	"description": "Background job processing for Next.js",

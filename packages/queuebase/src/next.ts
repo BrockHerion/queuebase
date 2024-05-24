@@ -14,8 +14,26 @@ export const createAppRouteHandler = <TRouter extends JobRouter>(
   const handlers = INTERNAL_DO_NOT_USE_createRouteHandler(opts);
 
   return {
-    GET: (req: NextRequest) => handlers.GET(req),
-    POST: (req: NextRequest) => handlers.POST(req),
+    GET: async (req: NextRequest) => {
+      const result = await handlers.GET(req);
+
+      if (!result) {
+        return new Response(null, { status: 401 });
+      }
+
+      return new Response(JSON.stringify(result), { status: 200 });
+    },
+    POST: async (req: NextRequest) => {
+      const result = await handlers.POST(req);
+
+      if (result.success) {
+        return new Response(null, { status: 204 });
+      }
+
+      return new Response(JSON.stringify({ error: "Failed to run job" }), {
+        status: 500,
+      });
+    },
   };
 };
 
@@ -29,19 +47,22 @@ export const createPagesApiHandler = <TRouter extends JobRouter>(
 
     if (req.method === "GET") {
       const response = await handlers.GET({ request: webReq });
-      const body = await response.json();
 
-      res.status(response.status).json(body);
+      if (!response) {
+        return res.status(401);
+      }
+
+      res.status(200).json(res);
       return;
     }
 
     if (req.method === "POST") {
-      const response = await handlers.POST({ request: webReq });
+      const result = await handlers.POST({ request: webReq });
 
-      if (response.status === 204) {
-        res.status(response.status).end();
+      if (result.success) {
+        res.status(204).end();
       } else {
-        res.status(response.status).json({ error: "Failed to run job" });
+        res.status(500).json({ error: "Failed to run job" });
       }
 
       return;

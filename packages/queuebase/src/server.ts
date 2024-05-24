@@ -21,7 +21,7 @@ export function INTERNAL_DO_NOT_USE_createRouteHandler<
 
     if (!validationResult) {
       console.error("Invalid signature");
-      return new Response(null, { status: 401 });
+      return null;
     }
 
     const jobs = Object.keys(opts.router);
@@ -32,7 +32,7 @@ export function INTERNAL_DO_NOT_USE_createRouteHandler<
       res.push({ name: job, ...config });
     }
 
-    return new Response(JSON.stringify(res), { status: 200 });
+    return res;
   };
 
   const POST = async (request: Request | { request: Request }) => {
@@ -42,11 +42,11 @@ export function INTERNAL_DO_NOT_USE_createRouteHandler<
 
     if (!response.success) {
       console.error("Failed to run job");
-      return new Response(null, { status: 500 });
+      return { success: false };
     }
 
     console.log("Job ran successfully");
-    return new Response(null, { status: 204 });
+    return { success: true };
   };
 
   return {
