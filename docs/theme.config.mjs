@@ -43,6 +43,9 @@ export default {
   chat: {
     link: "https://discord.gg/jWD24YE9bJ",
   },
+  project: {
+    link: "https://github.com/BrockHerion/queuebase",
+  },
   logo: Logo,
   head: Head,
   editLink: {
