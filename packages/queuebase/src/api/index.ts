@@ -1,5 +1,5 @@
 import { process } from "std-env";
-import { getApiKeyOrThrow } from "../../lib/get-api-key";
+import { getApiKeyOrThrow } from "../lib/get-api-key";
 import { AttemptsClient } from "./attempts";
 import { JobsClient } from "./jobs";
 

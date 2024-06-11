@@ -1,6 +1,6 @@
-import { QueuebaseApiClient } from "../sdk/api";
+import { QueuebaseApiClient } from "../api";
+import { Logger } from "../logger";
 import { verifySignature } from "./crypto";
-import { Logger } from "./logger";
 import {
   JobRouter,
   RequestHandler,

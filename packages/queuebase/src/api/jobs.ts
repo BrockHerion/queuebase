@@ -1,4 +1,4 @@
-import { AnyParams, EnqueueConfig } from "../../lib/types";
+import { AnyParams, EnqueueConfig } from "../lib/types";
 import { BaseClient } from "./base-client";
 
 export class JobsClient extends BaseClient {

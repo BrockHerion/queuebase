@@ -1,5 +1,5 @@
+import { QueuebaseApiClient } from "./api";
 import { EnqueueConfig, JobRouter, UnsetMarker } from "./lib/types";
-import { QueuebaseApiClient } from "./sdk/api";
 
 function genJobs<TRouter extends JobRouter>(apiKey?: string) {
   return <TEndpoint extends keyof TRouter>(endpoint: TEndpoint) => {

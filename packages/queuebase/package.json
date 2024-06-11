@@ -1,13 +1,14 @@
 {
 	"name": "queuebase",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"license": "MIT",
 	"type": "module",
 	"description": "Background job processing for Next.js",
 	"author": "Brock Herion",
 	"scripts": {
 		"dev": "bunchee -w --tsconfig tsconfig.build.json",
-		"build": "bunchee --tsconfig tsconfig.build.json"
+		"build": "bunchee --tsconfig tsconfig.build.json",
+		"publish": "pnpm build && npm publish --access public"
 	},
 	"exports": {
 		"./package.json": "./package.json",
@@ -59,6 +60,26 @@
 			"require": {
 				"types": "./dist/lib/types.d.cts",
 				"default": "./dist/lib/types.cjs"
+			}
+		},
+		"./api": {
+			"import": {
+				"types": "./dist/api.d.ts",
+				"default": "./dist/api.js"
+			},
+			"require": {
+				"types": "./dist/api.d.cts",
+				"default": "./dist/api.cjs"
+			}
+		},
+		"./logger": {
+			"import": {
+				"types": "./dist/logger.d.ts",
+				"default": "./dist/logger.js"
+			},
+			"require": {
+				"types": "./dist/logger.d.cts",
+				"default": "./dist/logger.cjs"
 			}
 		}
 	},

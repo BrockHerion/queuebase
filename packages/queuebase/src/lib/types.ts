@@ -1,4 +1,4 @@
-import { Logger } from "./logger";
+import { QueuebaseLogger } from "../logger";
 import { JsonParser } from "./parser";
 
 export type MaybePromise<T> = T | Promise<T>;
@@ -27,7 +27,7 @@ export type UnsetMarker = typeof unsetMarker;
 
 type ResolverOptions<TParams extends AnyParams> = {
   input: TParams["_input"];
-  logger: Logger;
+  logger: QueuebaseLogger;
 };
 
 type HandlerFn<TOutput extends Json | void, TParams extends AnyParams> = (

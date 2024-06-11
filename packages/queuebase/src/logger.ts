@@ -1,6 +1,14 @@
-import { QueuebaseApiClient } from "../sdk/api";
+import { QueuebaseApiClient } from "./api";
 
 export abstract class QueuebaseLogger {
+  protected _apiClient: QueuebaseApiClient;
+  protected _attemptId: string;
+
+  constructor(apiClient: QueuebaseApiClient, attemptId: string) {
+    this._apiClient = apiClient;
+    this._attemptId = attemptId;
+  }
+
   abstract info(message: string): void;
   abstract error(message: string): void;
   abstract warn(message: string): void;
@@ -55,13 +63,8 @@ const icons: { [t in LogLevel]?: string } = {
 };
 
 export class Logger extends QueuebaseLogger {
-  private _apiClient: QueuebaseApiClient;
-  private _attemptId: string;
-
   constructor(apiClient: QueuebaseApiClient, attemptId: string) {
-    super();
-    this._apiClient = apiClient;
-    this._attemptId = attemptId;
+    super(apiClient, attemptId);
   }
 
   info(message: string): void {
