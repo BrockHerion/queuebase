@@ -1,6 +1,6 @@
 {
 	"name": "queuebase",
-	"version": "0.0.13",
+	"version": "0.0.15",
 	"license": "MIT",
 	"type": "module",
 	"description": "Background job processing for Next.js",
@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev": "bunchee -w --tsconfig tsconfig.build.json",
 		"build": "bunchee --tsconfig tsconfig.build.json",
-		"publish": "pnpm build && npm publish --access public"
+		"publish": "npm publish --access public"
 	},
 	"exports": {
 		"./package.json": "./package.json",
@@ -64,22 +64,22 @@
 		},
 		"./api": {
 			"import": {
-				"types": "./dist/api.d.ts",
-				"default": "./dist/api.js"
+				"types": "./dist/api/index.d.ts",
+				"default": "./dist/api/index.js"
 			},
 			"require": {
-				"types": "./dist/api.d.cts",
-				"default": "./dist/api.cjs"
+				"types": "./dist/api/index.d.cts",
+				"default": "./dist/api/index.cjs"
 			}
 		},
 		"./logger": {
 			"import": {
-				"types": "./dist/logger.d.ts",
-				"default": "./dist/logger.js"
+				"types": "./dist/logger/index.d.ts",
+				"default": "./dist/logger/index.js"
 			},
 			"require": {
-				"types": "./dist/logger.d.cts",
-				"default": "./dist/logger.cjs"
+				"types": "./dist/logger/index.d.cts",
+				"default": "./dist/logger/index.cjs"
 			}
 		}
 	},
