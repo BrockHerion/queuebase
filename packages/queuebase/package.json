@@ -7,8 +7,7 @@
 	"author": "Brock Herion",
 	"scripts": {
 		"dev": "bunchee -w --tsconfig tsconfig.build.json",
-		"build": "bunchee --tsconfig tsconfig.build.json",
-		"publish": "npm publish --access public"
+		"build": "bunchee --tsconfig tsconfig.build.json"
 	},
 	"exports": {
 		"./package.json": "./package.json",
