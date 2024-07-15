@@ -1,14 +1,14 @@
 ---
-title: "Scheduling jobs"
+title: "CRON jobs"
 ---
 
-# Scheduling jobs
+# CRON jobs
 
-Scheduled jobs are jobs that run on a given interval. This is useful for tasks that need to run periodically, like sending emails, cleaning up old data, or updating a cache.
+CRON jobs are jobs that run on a given interval. This is useful for tasks that need to run periodically, like sending emails, cleaning up old data, or updating a cache.
 
-## Creating a scheduled job
+## Creating a CRON job
 
-First, you'll want to make sure you have your job configured in your job router. There is no special syntax for scheduled jobs; they are just like any other job.
+First, you'll want to make sure you have your job configured in your job router. There is no special syntax for CRON jobs; they are just like any other job.
 
 ```ts
 // api/queuebase/core.ts
@@ -24,7 +24,7 @@ Next, you'll want to navigate to the [scheduled jobs](https://www.queuebase.com/
 
 ![Create a new scheduled job](/cron.png)
 
-When creating a scheduled job, you'll need to provide the following information:
+When creating a CRON job, you'll need to provide the following information:
 
 - A unique name for the job
 - A valid [CRON expression](https://crontab.guru/)
@@ -34,4 +34,4 @@ When selecting a job route, you'll get a list of all jobs that have been created
 
 ## Running your job
 
-After you save your scheduled job, we take it from here. We'll run your job on the interval you specified. You can view the status of your job in the dashboard. Scheduled job runs are treated as normal job runs, so you can view the logs status, and payload of each run.
+After you save your CRON job, we take it from here. We'll run your job on the interval you specified. You can view the status of your job in the dashboard. CRON job runs are treated as normal job runs, so you can view the logs status, and payload of each run.
