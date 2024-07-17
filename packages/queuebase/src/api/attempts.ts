@@ -27,23 +27,6 @@ export class AttemptsClient extends BaseClient {
     }
   }
 
-  async updateStatus(attemptId: string, status: string) {
-    try {
-      await fetch(`${this._queuebaseUrl}/attempts/${attemptId}/status`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${this._publicKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          status,
-        }),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async log(
     attemptId: string,
     level: string,

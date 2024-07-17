@@ -60,14 +60,6 @@ export async function runRequestHandler(
     duration: Math.round(duration),
   });
 
-  if (success) {
-    // Return a success response
-    await apiClient.attempts.updateStatus(rest.attemptId, "completed");
-  } else {
-    // Return a failure response
-    await apiClient.attempts.updateStatus(rest.attemptId, "failed");
-  }
-
   return { success };
 }
 
